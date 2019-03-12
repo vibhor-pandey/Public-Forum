@@ -13,7 +13,8 @@ What things you need to install the software and how to install them
 
 ```
 1) MYSQL DATABASE
-2) JAVA
+2) IDE (Eclipse / IntelliJ)
+3) JAVA
 ```
 
 ### Installing
