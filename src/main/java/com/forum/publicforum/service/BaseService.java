@@ -7,7 +7,9 @@ public class BaseService {
     
     
     protected BaseResponse getErrorResponse(ErrorCode code, BaseResponse response) {
+        response.setError(code.getCode());
         response.setErrorCode(code);
+        response.setDescription(code.getDescription());
         response.setSuccess(false);
         return response;
     }

@@ -12,9 +12,14 @@ import com.forum.publicforum.util.ErrorCode;
 @JsonInclude(value = Include.NON_NULL)
 public class BaseResponse {
     
-    protected ErrorCode errorCode;
+    private Integer error;
+    
+    private transient ErrorCode errorCode;
+    
+    private String description;
     
     private boolean isSuccess;
     
     private String message;
+    
 }
