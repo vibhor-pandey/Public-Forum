@@ -21,11 +21,11 @@ What things you need to install the software and how to install them
 
 Make below changes in application.properties
 
-``
+```
 spring.datasource.username= <DB_USERNAME>
 spring.datasource.password= <PASSWORD>
 
-``
+```
 
 
 ### How To Run the Project
