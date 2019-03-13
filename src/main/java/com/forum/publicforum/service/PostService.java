@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.forum.publicforum.constant.MessageConstant;
 import com.forum.publicforum.model.Article;
 import com.forum.publicforum.model.Comment;
+import com.forum.publicforum.model.User;
 import com.forum.publicforum.model.view.ArticleView;
 import com.forum.publicforum.model.view.UserView;
 import com.forum.publicforum.repository.CommentRepository;
@@ -163,27 +164,34 @@ public class PostService extends BaseService {
     @Transactional(readOnly = true)
     public BaseResponse getArticlesByEmail(GetArticlesRequest request, Pageable pageable) {
 
-        Integer userID = userService.getUserIdByEmail(request.getEmail()).get();
+        Optional<User> optionalUser = userService.getUserByEmail(request.getEmail());
+        
         UserArticlesResponse response = new UserArticlesResponse();
 
-        Page<Article> articleStream = null;
+        optionalUser.ifPresent(user -> {
+            Page<Article> articleStream = null;
+            
+            if(!request.isOwnArticles()) {
+                articleStream = postRepository.findOthersArticlesById(user.getId(), pageable);
+            } else {
+                articleStream = postRepository.findOwnArticlesById(user.getId(), pageable);
+            }
+
+            List<ArticleView> articles = articleStream.getContent().stream()
+                    .map(artcl -> 
+                        new ArticleView(artcl.getId(), new UserView(artcl.getUser().getId(),
+                        artcl.getUser().getName()), artcl.getContent(),
+                        artcl.getComments(), artcl.getCreateTS(), artcl.getImageURL()))
+                    .collect(Collectors.toList());
+                    
+
+            response.setSuccess(true);
+            response.setArticles(articles);
+        });
         
-        if(!request.isOwnArticles()) {
-            articleStream = postRepository.findOthersArticlesById(userID, pageable);
-        } else {
-            articleStream = postRepository.findOwnArticlesById(userID, pageable);
+        if(response.isSuccess()) {
+            return response;
         }
-
-        List<ArticleView> articles = articleStream.getContent().stream()
-                .map(artcl -> 
-                    new ArticleView(artcl.getId(), new UserView(artcl.getUser().getId(),
-                    artcl.getUser().getName()), artcl.getContent(),
-                    artcl.getComments(), artcl.getCreateTS(), artcl.getImageURL()))
-                .collect(Collectors.toList());
-                
-
-        response.setSuccess(true);
-        response.setArticles(articles);
-        return response;
+        return getErrorResponse(ErrorCode.USER_NOT_EXIST, response);
     }
 }

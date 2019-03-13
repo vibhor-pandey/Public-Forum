@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.forum.publicforum.req.GetArticlesRequest;
 import com.forum.publicforum.req.PostArticleRequest;
@@ -26,17 +27,20 @@ public class PostController {
     PostService postService;
     
     @RequestMapping(value = "/post/article", method = RequestMethod.POST)
+    @ResponseBody
     public ResponseEntity<BaseResponse> postArticle(@Valid @RequestBody PostArticleRequest request) {
         return new ResponseEntity<BaseResponse>(postService.postArticleByEmail(request), HttpStatus.CREATED);
     }
     
     
     @RequestMapping(value = "/post/comment", method = RequestMethod.POST)
+    @ResponseBody
     public ResponseEntity<BaseResponse> postComment(@Valid @RequestBody PostCommentRequest request) {
         return new ResponseEntity<BaseResponse>(postService.postCommentByEmailAndPostID(request), HttpStatus.CREATED);
     }
     
     @RequestMapping(value = "/articles", method = RequestMethod.POST)
+    @ResponseBody
     public ResponseEntity<BaseResponse> getUserArticles(@Valid @RequestBody GetArticlesRequest request, Pageable pageable) {
         return new ResponseEntity<BaseResponse>(postService.getArticlesByEmail(request, pageable), HttpStatus.FOUND);
     }
