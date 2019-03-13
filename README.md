@@ -17,21 +17,25 @@ What things you need to install the software and how to install them
 3) JAVA
 ```
 
-### Installing
+### Changes required before running the project
 
-A step by step series of examples that tell you how to get a development env running
+Make below changes in application.properties
 
-Say what the step will be
+``
+spring.datasource.username= <DB_USERNAME>
+spring.datasource.password= <PASSWORD>
+
+``
+
+
+### How To Run the Project
+
 
 ```
 To Run, use the given Command in the root path of the Project: 
 
 ./mvnw spring-boot:run
 ```
-
-
-End with an example of getting some data out of the system or using it for a little demo
-
 
 ### Postman Link for the APIs
 
