@@ -38,6 +38,6 @@ public class PostController {
     
     @RequestMapping(value = "/articles", method = RequestMethod.POST)
     public ResponseEntity<BaseResponse> getUserArticles(@Valid @RequestBody GetArticlesRequest request, Pageable pageable) {
-        return new ResponseEntity<BaseResponse>(postService.getArticlesByEmail(request, pageable), HttpStatus.CREATED);
+        return new ResponseEntity<BaseResponse>(postService.getArticlesByEmail(request, pageable), HttpStatus.FOUND);
     }
 }

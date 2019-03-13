@@ -33,6 +33,8 @@ public class ArticleView extends BaseView{
         this.imageUrl = imageUrl;
     }
     
-    
+    public ArticleView() {
+        super();
+    }
 
 }
