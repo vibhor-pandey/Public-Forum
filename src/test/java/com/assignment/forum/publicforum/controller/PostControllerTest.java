@@ -145,6 +145,75 @@ public class PostControllerTest {
     }
     
     
+    /**
+     * 
+     * @throws JsonProcessingException
+     * @throws Exception
+     */
+    @Test
+    public void postArticleCommentArticleNotExistsTest() throws JsonProcessingException, Exception {
+      //Request Body
+        PostCommentRequest request = new PostCommentRequest();
+        request.setAuth_token(TestConstant.TEST_USER_AUTH_TOKEN);
+        request.setEmail(TestConstant.TEST_USER_EMAIL);
+        request.setComment(TestConstant.TEST_COMMENT);
+        request.setArticleId(TestConstant.WRONG_TEST_ARTICLE_ID);
+        
+        mockMvc.perform(post(FORUM + POST_COMMENT)
+                .header("Content-Type", MediaType.APPLICATION_JSON)
+                .content(TestUtil.convertRequestObjectToString(request))
+                .characterEncoding("utf-8"))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.success", Is.is(false)))
+                .andExpect(jsonPath("$.error", Is.is(ErrorCode.ARTICLE_NOT_EXIST.getCode())));
+    }
+    
+    /**
+     * 
+     * @throws JsonProcessingException
+     * @throws Exception
+     */
+    @Test
+    public void postArticleCommentUserNotAuthenticatedTest() throws JsonProcessingException, Exception {
+        //Request Body
+        PostCommentRequest request = new PostCommentRequest();
+        request.setAuth_token(TestConstant.WRONG_TEST_USER_AUTH_TOKEN);
+        request.setEmail(TestConstant.TEST_USER_EMAIL);
+        request.setComment(TestConstant.TEST_COMMENT);
+        request.setArticleId(TestConstant.TEST_ARTICLE_ID);
+        
+        mockMvc.perform(post(FORUM + POST_COMMENT)
+                .header("Content-Type", MediaType.APPLICATION_JSON)
+                .content(TestUtil.convertRequestObjectToString(request))
+                .characterEncoding("utf-8"))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.success", Is.is(false)))
+                .andExpect(jsonPath("$.error", Is.is(ErrorCode.USER_NOT_AUTHENTICATED.getCode())));
+    }
+    
+    
+    /**
+     * 
+     * @throws JsonProcessingException
+     * @throws Exception
+     */
+    @Test
+    public void postArticleCommentSuccessTest() throws JsonProcessingException, Exception {
+      //Request Body
+        PostCommentRequest request = new PostCommentRequest();
+        request.setAuth_token(TestConstant.TEST_USER_AUTH_TOKEN);
+        request.setEmail(TestConstant.TEST_USER_EMAIL);
+        request.setComment(TestConstant.TEST_COMMENT);
+        request.setArticleId(TestConstant.TEST_ARTICLE_ID);
+        
+        mockMvc.perform(post(FORUM + POST_COMMENT)
+                .header("Content-Type", MediaType.APPLICATION_JSON)
+                .content(TestUtil.convertRequestObjectToString(request))
+                .characterEncoding("utf-8"))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.success", Is.is(true)));
+    }
+    
     
     /**
      * 
