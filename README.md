@@ -53,3 +53,9 @@ https://www.getpostman.com/collections/003abff5e128539204c1
 5) Get Other User's Articles
 6) Get Own Articles
 ```
+
+### Pre-requisites for Testing
+
+```
+Eclipse: EclEmma Tool (for JUnit Testing)
+```
