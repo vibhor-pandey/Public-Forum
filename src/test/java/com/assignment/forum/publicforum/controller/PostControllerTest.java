@@ -7,7 +7,6 @@ import java.util.List;
 import org.hamcrest.core.Is;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,7 +28,6 @@ import com.assignment.forum.publicforum.constant.TestConstant;
 import com.assignment.forum.publicforum.util.TestUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.forum.publicforum.PublicForumApplication;
-import com.forum.publicforum.controller.PostController;
 import com.forum.publicforum.model.Comment;
 import com.forum.publicforum.model.view.ArticleView;
 import com.forum.publicforum.model.view.UserView;
@@ -48,9 +46,6 @@ public class PostControllerTest {
     
     @Autowired
     private MockMvc mockMvc;
-    
-    @InjectMocks
-    private PostController postController;
     
     
     /**

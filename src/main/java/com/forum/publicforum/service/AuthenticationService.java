@@ -1,6 +1,5 @@
 package com.forum.publicforum.service;
 
-import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;

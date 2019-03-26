@@ -1,19 +1,16 @@
 package com.assignment.forum.publicforum.controller;
 
 import static com.forum.publicforum.constant.Path.FORUM;
-import static com.forum.publicforum.constant.Path.POST_ARTICLE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static com.forum.publicforum.constant.Path.SIGNUP;
-import static com.forum.publicforum.constant.Path.FORUM;
 import static com.forum.publicforum.constant.Path.LOGIN;
 
 import org.hamcrest.core.Is;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.internal.matchers.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -40,9 +37,6 @@ public class UserControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-    
-    @InjectMocks
-    private UserController userController;
     
     /**
      * 
